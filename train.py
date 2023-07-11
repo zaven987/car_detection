@@ -589,9 +589,9 @@ def main(opt, callbacks=Callbacks()):
         for _ in range(opt.evolve):  # generations to evolve
             if evolve_csv.exists():  # if evolve.csv exists: select best hyps and mutate
                 # Select parent(s)
-                parent = 'single'  # parent selection method: 'single' or 'weighted'
+                parent = 'weighted'  # parent selection method: 'single' or 'weighted'
                 x = np.loadtxt(evolve_csv, ndmin=2, delimiter=',', skiprows=1)
-                n = min(5, len(x))  # number of previous results to consider
+                n = min(3, len(x))  # number of previous results to consider
                 x = x[np.argsort(-fitness(x))][:n]  # top n mutations
                 w = fitness(x) - fitness(x).min() + 1E-6  # weights (sum > 0)
                 if parent == 'single' or len(x) == 1:
